@@ -17,15 +17,33 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int count = 0;
+  String titulo = "Pode entrar";
   void decrement() {
-    print("decrement");
+    setState(() {
+      if (count > 0) count--;
+    });
+    print(count);
   }
 
   void increment() {
-    print("increment");
+    setState(() {
+      if (count < 21) {
+        count++;
+        titulo = "Pode entrar";
+      } else {
+        titulo = "Limite atingido!";
+      }
+    });
+    print(count);
   }
 
   @override
@@ -42,19 +60,19 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Pode entrar!',
-              style: TextStyle(
+            Text(
+              titulo,
+              style: const TextStyle(
                 fontSize: 26,
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(40),
+            Padding(
+              padding: const EdgeInsets.all(40),
               child: Text(
-                '0',
-                style: TextStyle(
+                count.toString(),
+                style: const TextStyle(
                   fontSize: 80,
                   color: Colors.white,
                 ),
